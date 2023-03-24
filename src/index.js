@@ -1,7 +1,7 @@
 import app from './server.js';
 import dbConnection from './db.js';
 
-const port = process.env.PORT || 7001;
+const port = 4000 ;
 
 dbConnection.getConnect();
 
