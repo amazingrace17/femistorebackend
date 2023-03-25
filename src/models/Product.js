@@ -10,21 +10,17 @@ const productSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+    
     },
-    category: {
-      type: SchemaTypes.ObjectId,
-      ref: 'category',
-      required: true,
-    },
-    subcategory: {
-      type: SchemaTypes.ObjectId,
-      ref: 'subcategory',
-      required: true,
-    },
-    tags:{
-        type:String,
-    },
+   
+    // subcategory: {
+    //   type: SchemaTypes.ObjectId,
+    //   ref: 'subcategory',
+    //   required: true,
+    // },
+    // tags:{
+    //     type:String,
+    // },
     imageUrl: {
       type: String,
     },
@@ -32,14 +28,14 @@ const productSchema = new Schema(
       type: Number,
       required: true,
     },
-    discount:{
-        type:Number,
-        required:true,
-    },
-    stock: {
-      type: Number,
-      required: true,
-    },
+    // discount:{
+    //     type:Number,
+    //     required:true,
+    // },
+    // stock: {
+    //   type: Number,
+    //   required: true,
+    // },
     dateAdded: {
       type: Date,
       default: Date.now,

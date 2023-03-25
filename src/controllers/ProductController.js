@@ -4,7 +4,7 @@ import emptyFields from '../services/emptyFields.js';
 
 const ProductController = {
   createProduct: async (req, res) => {
-    const { name, description, category, subcategory, imageUrl, price, discount, stock } = req.body;
+    const { name, description,  imageUrl, price,  stock } = req.body;
     
     /* 
     if(!req.file) {
@@ -13,7 +13,7 @@ const ProductController = {
         message: "Please select a product image to upload"
       })
     } */
-    const reqFields = ['name', 'description', 'category', 'subcategory', /* 'imageUrl', */ 'price', 'discount', 'stock'];
+    const reqFields = ['name',  /* 'imageUrl', */ 'price',];
     // emptyFields(req, res, reqFields);
     let emptyFlds = [];
 
@@ -89,8 +89,7 @@ const ProductController = {
 
     try {
       const product = await Product.find({})
-        .populate('category', 'name')
-        .populate('subcategory', 'name')
+
         .exec();
       const pgn = await pagination(req, 1, Product);
       

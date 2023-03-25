@@ -1,16 +1,16 @@
 import { Cart } from '../models/Cart.js';
+import pagination from '../services/pagination.js';
 
 const CartController = {
   createCart: async (req, res) => {
     let { userId, items } = req.body;
 
-    if (!userId || !items || items.length < 1) {
+    if (!userId || !items || items.value < 5) {
       return res.status(400)
         .json({ status: 'fail', message: 'Please add some items to the cart' });
     }
 
-    const billArray = items.map((i) => (i.quantity * i.price));
-    const bill = billArray.reduce((prevTotal, nextPrice) => prevTotal + nextPrice, 0);
+
 
     try {
       const cartExists = await Cart.findOne({ userId });
@@ -18,7 +18,7 @@ const CartController = {
       if (cartExists) {
 
         req.body.items = items;
-        req.body.bill = bill;
+        
         cart = await Cart.findOneAndUpdate(
           userId,
           req.body,
@@ -30,7 +30,7 @@ const CartController = {
         const newCart = new Cart();
         newCart.userId = userId;
         newCart.items = items;
-        newCart.bill = bill;
+    
 
         cart = await newCart.save();
         console.log('New Cart')
@@ -55,11 +55,25 @@ const CartController = {
     const { userId } = req.body;
     try {
       const cart = await Cart.findOne({ userId: userId }) 
-        // .populate('user', 'name', 'email')    
+        // .populate('user', )    
         .exec()
         ;
       return res.status(200)
         .json({ status: 'success', message: 'cart retrieved', data: cart });
+    } catch (err) {
+      return res.status(500)
+        .json({ status: 'fail', message: 'server err', err });
+    }
+  },getCarts: async (req, res) => {
+   
+    try {
+      const cart =await Cart.find({})
+        .populate('userId')    
+        .exec()
+        const pgn = await pagination(req, 1, Cart);
+        ;
+      return res.status(200)
+        .json({ status: 'success', message: 'cart retrieved', documentCount: pgn.documentCount, data: cart });
     } catch (err) {
       return res.status(500)
         .json({ status: 'fail', message: 'server err', err });

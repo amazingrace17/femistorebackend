@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.json({
     status: 'success',
-    message: 'Welcome to Our Food Management API.',
+    message: 'Welcome to Femi store Project.',
    
     
   
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use(router);
+app.use(router); 
 // app.use('/api/v1', router);
 
 export default app;

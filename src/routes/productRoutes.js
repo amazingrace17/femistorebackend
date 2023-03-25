@@ -8,7 +8,7 @@ import authValidator from '../middlewares/AuthValidator.js';
 const router = Router();
 
 router.route('/')
-  .post([authValidator, isSeller], ProductController.createProduct)
+  .post(ProductController.createProduct)
   .get(ProductController.getProduct)
   ;
 router.route('/:id')
