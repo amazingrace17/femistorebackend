@@ -4,9 +4,9 @@ import pagination from '../services/pagination.js';
 
 const CartController = {
   createCart: async (req, res) => {
-    let { userId, items } = req.body;
+    let { userId, items, bill,timeTaken } = req.body;
 
-    if (!userId || !items || items.value < 5) {
+    if (!userId || !items) {
       return res.status(400)
         .json({ status: 'fail', message: 'Please add some items to the cart' });
     }
@@ -19,7 +19,7 @@ const CartController = {
       if (cartExists) {
 
         req.body.items = items;
-        
+        req.body.bill = bill
         cart = await Cart.findOneAndUpdate(
           userId,
           req.body,
@@ -31,7 +31,8 @@ const CartController = {
         const newCart = new Cart();
         newCart.userId = userId;
         newCart.items = items;
-    
+        newCart.timeTaken = timeTaken;
+        newCart.bill = bill;
 
         cart = await newCart.save();
         console.log('New Cart')
@@ -54,7 +55,7 @@ const CartController = {
   createDarkCart: async (req, res) => {
     let { userId, items, bill,timeTaken } = req.body;
 
-    if (!userId || !items || items.value ) {
+    if (!userId || !items ) {
       return res.status(400)
         .json({ status: 'fail', message: 'Please add some items to the cart' });
     }
