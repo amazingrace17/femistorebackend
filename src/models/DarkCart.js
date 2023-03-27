@@ -48,4 +48,4 @@ const cartSchema = new Schema(
   },{ timestamps: true }
 );
 
-export const Cart = model ('cart', cartSchema)
+export const Cart2 = model ('cart2', cartSchema)
