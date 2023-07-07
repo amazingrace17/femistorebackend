@@ -1,10 +1,11 @@
-import { Product } from '../models/Product.js';
+// import { Product } from '../models/Product.js';
+import { BlogPost } from '../models/Blog.js';
 import pagination from '../services/pagination.js';
 import emptyFields from '../services/emptyFields.js';
 
-const ProductController = {
-  createProduct: async (req, res) => {
-    const { name, description,  imageUrl, price,  stock } = req.body;
+const BlogPostController = {
+  createBlogPost: async (req, res) => {
+    const { title, description, context, avatarUrl, intextImage1, intextImage2, intextImage3, publishedDate,estimatedTime,author,  imageUrl } = req.body;
     
     /* 
     if(!req.file) {
@@ -13,7 +14,7 @@ const ProductController = {
         message: "Please select a product image to upload"
       })
     } */
-    const reqFields = ['name',  /* 'imageUrl', */ 'price',];
+    const reqFields = ['title','context', 'estimatedTime', 'author'];
     // emptyFields(req, res, reqFields);
     let emptyFlds = [];
 
@@ -31,10 +32,10 @@ const ProductController = {
     }
 
     try {
-      const newProduct = new Product(req.body);
-      const product = await newProduct.save();
+      const newBlogPost = new BlogPost(req.body);
+      const blogPost = await newBlogPost.save();
 
-      if (!product) {
+      if (!blogPost) {
         return res
           .status(400)
           .json({ status: 'fail', message: 'something went wrong' });
@@ -47,7 +48,7 @@ const ProductController = {
 
       return res
         .status(201)
-        .json({ status: 'success', message: 'successful', data: product });
+        .json({ status: 'success', message: 'successful', data: blogPost });
     } catch (err) {
       return res
         .status(500)
@@ -85,18 +86,18 @@ const ProductController = {
     }
   },
 
-  getProduct: async (req, res) => {
+  getBlogPost: async (req, res) => {
 
     try {
-      const product = await Product.find({})
+      const blogPost= await BlogPost.find({})
 
         .exec();
-      const pgn = await pagination(req, 1, Product);
+      const pgn = await pagination(req, 1,BlogPost);
       
       return res.status(200).json({
         status: 'success',
         message: 'successful',
-        data: product,
+        data: blogPost,
 
         // pagination
         documentCount: pgn.documentCount,
@@ -249,4 +250,4 @@ const ProductController = {
   }
 };
 
-export default ProductController;
+export default BlogPostController;
