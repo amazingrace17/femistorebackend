@@ -111,23 +111,23 @@ const BlogPostController = {
     }
   },
 
-  getProductById: async (req, res) => {
+  getBlogPostById: async (req, res) => {
     const { id } = req.params;
     try {
-      const product = await Product.findById(id)
-        .populate('category', 'name')
-        .populate('subcategory', 'name')
+      const blogPost = await BlogPost.findById(id)
+        // .populate('category', 'name')
+        // .populate('subcategory', 'name')
         .exec();
-      if(!product) {
+      if(!blogPost) {
         return res.status(404).json({ 
           status: "failed", 
-          message: "product not found" 
+          message: "blog not found" 
         });
       }
 
       return res
         .status(200)
-        .json({ status: 'success', message: 'successful', data: product });
+        .json({ status: 'success', message: 'successful', data: blogPost});
     } catch (err) {
       return res
         .status(500)
@@ -136,10 +136,11 @@ const BlogPostController = {
     
   },
 
-  updateProduct: async (req, res) => {
+  updateBlogPost: async (req, res) => {
     const { id } = req.params;
-    
-    const reqFields = ['name', 'description', 'category', 'subcategory', /* 'imageUrl', */ 'price', 'discount', 'stock'];
+    // const reqFields = ['title', 'description', 'context', 'context1','context2','context3',  'avatarUrl', 'author', 'references', 'illustration','intextImage1','intextImage2','intextImage3'];
+
+     const reqFields = ['context1','context2','context3',];
     // emptyFields(req, res, reqFields);
     let emptyFlds = [];
 
@@ -157,20 +158,20 @@ const BlogPostController = {
     }
 
     try { 
-      const product = await Product.findByIdAndUpdate(
+      const blog = await BlogPost.findByIdAndUpdate(
         id,
         req.body,
         { new: true }
       ); 
 
-      if (!product) {
+      if (!blog) {
         return res
           .status(400)
-          .json({ status: 'fail', message: 'product not updated' });
+          .json({ status: 'fail', message: 'blog not updated' });
       }
 
       return res.status(200)
-        .json({ status: 'success', message: 'successfully updated', data: product });
+        .json({ status: 'success', message: 'successfully updated', data: blog });
    
     } catch (err) {
       return res.status(500)

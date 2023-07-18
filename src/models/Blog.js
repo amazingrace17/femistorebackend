@@ -15,6 +15,15 @@ const BlogPostSchema = new Schema(
     context:{
       type:String,
     },
+      context1:{
+      type:String,
+    },
+      context2:{
+      type:String,
+    }, 
+     context3:{
+      type:String,
+    },
     avatarUrl:{
       type:String,
     },
@@ -42,6 +51,11 @@ type: String
       required: true,
     },
    references:{
+    type: String,
+  
+    
+   },
+  illustration:{
     type: String,
   
     

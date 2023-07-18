@@ -11,9 +11,9 @@ router.route('/')
   .post(BlogPostController.createBlogPost)
   .get(BlogPostController.getBlogPost)
   ;
-// router.route('/:id')
-//   .get(ProductController.getProductById)
-//   .put([authValidator, isSeller], ProductController.updateProduct)
+router.route('/:id')
+  .get(BlogPostController.getBlogPostById)
+  .put(BlogPostController.updateBlogPost)
 //   .delete([authValidator, isSeller], ProductController.deleteProduct)
 //   .post([authValidator, isSeller], upload.single('imageUrl'), ProductController.setProductImage);
 //   ;
