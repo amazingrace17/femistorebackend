@@ -14,6 +14,9 @@ router.route('/')
 router.route('/:id')
   .get(BlogPostController.getBlogPostById)
   .put(BlogPostController.updateBlogPost)
+
+  router.route('/sendemails')
+  .post(BlogPostController.sendEmail)
 //   .delete([authValidator, isSeller], ProductController.deleteProduct)
 //   .post([authValidator, isSeller], upload.single('imageUrl'), ProductController.setProductImage);
 //   ;

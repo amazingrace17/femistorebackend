@@ -3,6 +3,10 @@ import { BlogPost } from '../models/Blog.js';
 import pagination from '../services/pagination.js';
 import emptyFields from '../services/emptyFields.js';
 
+
+import axios from 'axios'
+
+const POSTMARK_API_TOKEN = `3837a7cd-0035-4546-9157-6e19bf1dd873`
 const BlogPostController = {
   createBlogPost: async (req, res) => {
     const { title, description, context, avatarUrl, intextImage1, intextImage2, intextImage3, publishedDate,estimatedTime,author,  imageUrl } = req.body;
@@ -135,7 +139,37 @@ const BlogPostController = {
     }
     
   },
+sendEmail:async(req, res) =>{
+    const { report, email} = req.body;
 
+    try{
+      const response = await axios.post(
+        'https://api.postmarkapp.com/email',
+        {
+        From: 'hello@vitract.com',
+        To: email,
+        Subject : ' Report Email',
+        TextBody: `Report : ${report}`,
+
+      },
+      
+{
+ headers:{
+        'Content-Type' : 'application/json',
+        'X-Postmark-Server-Token': POSTMARK_API_TOKEN,
+      } 
+}
+
+      
+      
+      );
+      console.log('Email sent' , response.data)
+     res.status(200).json({success:true}) 
+  }catch(error){
+    console.error("Error Sending email")
+    res.status(500).json({success:false, error :'FAiled to send email'})
+  }
+},
   updateBlogPost: async (req, res) => {
     const { id } = req.params;
     // const reqFields = ['title', 'description', 'context', 'context1','context2','context3',  'avatarUrl', 'author', 'references', 'illustration','intextImage1','intextImage2','intextImage3'];
