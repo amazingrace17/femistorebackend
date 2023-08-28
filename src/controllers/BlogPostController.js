@@ -174,15 +174,15 @@ sendEmail:async(req, res) =>{
     const { id } = req.params;
     // const reqFields = ['title', 'description', 'context', 'context1','context2','context3',  'avatarUrl', 'author', 'references', 'illustration','intextImage1','intextImage2','intextImage3'];
 
-     const reqFields = ['context1','context2','context3',];
+    //  const reqFields = ['context1','context2','context3',];
     // emptyFields(req, res, reqFields);
     let emptyFlds = [];
 
-    for (const field of reqFields) {
-      if (!req.body[field] ) {
-        emptyFlds.push(field);
-      }
-    }
+    // for (const field of reqFields) {
+    //   if (!req.body[field] ) {
+    //     emptyFlds.push(field);
+    //   }
+    // }
 
     if (emptyFlds.length > 0) {
       return res.status(400).json({ 

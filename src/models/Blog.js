@@ -24,6 +24,9 @@ const BlogPostSchema = new Schema(
      context3:{
       type:String,
     },
+    context4:{
+      type:String,
+    },
     avatarUrl:{
       type:String,
     },
@@ -36,6 +39,9 @@ type: String
        intextImage3:{
         type: String
            },
+           intextImage4:{
+            type: String
+               },
    publishedDate:{
     type: Date,
     required: true,
